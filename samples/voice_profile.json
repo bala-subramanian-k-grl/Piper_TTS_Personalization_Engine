@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "user_id": "default_user",
+  "source_audio": "user_clean.wav",
+  "prosody_features": {
+    "duration": 74.41065759637188,
+    "mean_f0": 114.63373132056799,
+    "std_f0": 31.05928466296394,
+    "mean_energy": 52.997669887010325,
+    "std_energy": 33.493292616286794,
+    "num_pauses": 766,
+    "pause_rate": 10.294224305274097,
+    "speech_event_rate": 10.253907499900961
+  },
+  "dominant_emotion": "neutral",
+  "piper_runtime_params": {
+    "length_scale": 0.9,
+    "noise_scale": 0.6,
+    "noise_w": 0.7
+  }
+}
