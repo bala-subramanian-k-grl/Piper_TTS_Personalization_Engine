@@ -1,6 +1,6 @@
 # Piper TTS Personalization Engine
 
-## Quickstart (Windows)
+## Quickstart 
 
 1. Install Piper and download a voice model.
 2. Place `piper.exe` and the `.onnx` model in `C:\piper\piper`.
