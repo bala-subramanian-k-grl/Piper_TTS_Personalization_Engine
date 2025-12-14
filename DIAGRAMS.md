@@ -28,7 +28,7 @@ flowchart LR
 
 This diagram shows the journey from raw recordings and text to a training-ready dataset (used in corpora like LibriTTS/HUI).
 
-## Feature Extraction Flow
+## 1.2 Feature Extraction Flow
 
 ```mermaid
 flowchart LR
