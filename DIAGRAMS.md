@@ -1,4 +1,4 @@
-Dataset Pipeline
+## 1. Dataset Pipeline
 
 flowchart LR
 A[Raw Audio & Text Sources\n(Audiobooks, Scripts, Web Text)] --> B[Data Cleaning\n(remove noise, clipping, bad segments)]
@@ -48,7 +48,7 @@ C --> C5[Emotional Expressiveness]
 
 This diagram conceptually links dataset design choices (left) to the latent representation learned by a TTS model and finally to perceived voice qualities (right). [web:104][web:110][web:111]
 
-## 2. Updated Architecture (Mermaid)
+## 2. Architecture
 
 flowchart LR
 subgraph User Side
