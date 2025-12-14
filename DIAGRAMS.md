@@ -81,6 +81,48 @@ flowchart LR
 This conceptual map links dataset design to learned latent space and then to perceived voice qualities.
 
 ---
+```mermaid
+flowchart LR
+  subgraph "User Side"
+    UText[User Text Input]
+    UAudio[User Audio Recording<br/>user_raw.wav]
+  end
+
+  subgraph "Preprocessing"
+    P1[Audio Preprocess<br/>preprocess_audio.py]
+    P2[Cleaned Audio<br/>user_clean.wav]
+  end
+
+  subgraph "Analysis"
+    A1[Prosody Extraction<br/>prosody_profile.py]
+    A2[Emotion Inference<br/>emotion_model.py]
+    A3[Style Mapping<br/>style_mapping.py]
+  end
+
+  subgraph "Voice Profile"
+    B1[Profile Builder<br/>profile_builder.py]
+    B2[voice_profile.json]
+  end
+
+  subgraph "TTS Engine"
+    T1[Piper CLI Wrapper<br/>main_cli.py]
+    T2[Piper Binary<br/>piper.exe + .onnx]
+    T3[personalized.wav]
+  end
+
+  %% Connections
+  UAudio --> P1 --> P2
+  P2 --> A1 --> A2 --> A3 --> B1 --> B2
+  UText --> T1
+  B2 --> T1
+  T1 --> T2 --> T3
+
+  %% Note (simple and renderer-friendly)
+  B2 --- Note[This voice profile is built once and reused at inference time.]
+```
+
+
+
 ## 3. Data Flow Diagram (DFD) — Level 0
 
 ```mermaid
