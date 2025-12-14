@@ -80,47 +80,35 @@ flowchart LR
 
 This conceptual map links dataset design to learned latent space and then to perceived voice qualities.
 
----
 ```mermaid
-flowchart LR
-  subgraph "User Side"
-    UText[User Text Input]
-    UAudio[User Audio Recording<br/>user_raw.wav]
-  end
+flowchart TD
+  %% Top-to-bottom, simple and compatible Mermaid diagram
+  %% No parentheses in node labels to avoid parser issues on some renderers
+  classDef big fill:#f8f9fa,stroke:#0366d6,stroke-width:1px,rx:6,ry:6,font-size:20px;
 
-  subgraph "Preprocessing"
-    P1[Audio Preprocess<br/>preprocess_audio.py]
-    P2[Cleaned Audio<br/>user_clean.wav]
-  end
+  UserText[User Text Input]:::big
+  UserAudio[User Audio Recording\nuser_raw.wav]:::big
+  AudioPreprocess[Audio Preprocess - preprocess_audio.py]:::big
+  CleanedAudio[Cleaned Audio\nuser_clean.wav]:::big
+  Prosody[Prosody Extraction - prosody_profile.py]:::big
+  Emotion[Emotion Inference - emotion_model.py]:::big
+  Style[Style Mapping - style_mapping.py]:::big
+  ProfileBuilder[Profile Builder - profile_builder.py]:::big
+  VoiceProfile[voice_profile.json]:::big
+  PiperCLI[Piper CLI Wrapper - main_cli.py]:::big
+  PiperBin[Piper Binary - piper.exe and onnx]:::big
+  Output[personalized.wav]:::big
 
-  subgraph "Analysis"
-    A1[Prosody Extraction<br/>prosody_profile.py]
-    A2[Emotion Inference<br/>emotion_model.py]
-    A3[Style Mapping<br/>style_mapping.py]
-  end
+  %% Main vertical flow (straight top-to-bottom)
+  UserAudio --> AudioPreprocess --> CleanedAudio --> Prosody --> Emotion --> Style --> ProfileBuilder --> VoiceProfile --> PiperCLI --> PiperBin --> Output
 
-  subgraph "Voice Profile"
-    B1[Profile Builder<br/>profile_builder.py]
-    B2[voice_profile.json]
-  end
+  %% Text input goes to the TTS CLI; profile also feeds the CLI
+  UserText --> PiperCLI
+  VoiceProfile --- Note[This voice profile is built once and is reused at inference time]:::big
 
-  subgraph "TTS Engine"
-    T1[Piper CLI Wrapper<br/>main_cli.py]
-    T2[Piper Binary<br/>piper.exe + .onnx]
-    T3[personalized.wav]
-  end
-
-  %% Connections
-  UAudio --> P1 --> P2
-  P2 --> A1 --> A2 --> A3 --> B1 --> B2
-  UText --> T1
-  B2 --> T1
-  T1 --> T2 --> T3
-
-  %% Note (simple and renderer-friendly)
-  B2 --- Note[This voice profile is built once and reused at inference time.]
+  %% Links styling for visibility
+  linkStyle default stroke:#6c757d,stroke-width:2px;
 ```
-
 
 
 ## 3. Data Flow Diagram (DFD) — Level 0
