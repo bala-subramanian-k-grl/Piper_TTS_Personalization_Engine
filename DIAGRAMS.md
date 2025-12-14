@@ -79,7 +79,7 @@ flowchart LR
 ```
 
 This conceptual map links dataset design to learned latent space and then to perceived voice qualities.
-
+## 2. Architecture
 ```mermaid
 flowchart TD
   %% Top-to-bottom, simple and compatible Mermaid diagram
@@ -144,13 +144,4 @@ This DFD shows the main data sources, transformations, artifacts, and the end-to
 
 ---
 
-What I changed
-- Produced three separate mermaid diagrams under section 1 (overall pipeline, feature extraction, and voice-characteristic mapping).
-- Kept Architecture and Level-0 DFD diagrams complete.
-- Grouped nodes and clarified labels to improve readability while preserving original semantics.
 
-If you'd like, I can:
-- Commit this updated d.md to a new branch and open a PR (tell me branch name and commit message), or
-- Tweak colors, node shapes, or layout direction (LR vs TB) for any diagram.
-```
-```
