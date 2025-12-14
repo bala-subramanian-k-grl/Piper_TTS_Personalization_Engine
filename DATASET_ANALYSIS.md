@@ -201,59 +201,83 @@ This section translates the observations above into actionable guidelines to des
 
 ## 5. Diagrams (Mermaid)
 
-### 5.1 Dataset Pipeline
+## 1. Dataset Pipeline
 
+
+
+```mermaid
 flowchart LR
-A[Raw Audio & Text Sources\n(Audiobooks, Scripts, Web Text)] --> B[Data Cleaning\n(remove noise, clipping, bad segments)]
-B --> C[Segmentation\n(split into utterances)]
-C --> D[Alignment\n(audio ↔ text)]
-D --> E[Normalization\n(text, sampling rate, loudness)]
-E --> F[Feature Extraction\n(mel-spectrograms, phonemes, prosody)]
-F --> G[Training Dataset\n(ready for TTS models like Piper)]
+  %% Sources
+  subgraph Sources[" "]
+    A["📚 Raw Audio & Text Sources\n(Audiobooks, Scripts, Web Text)"]
+  end
 
+  %% Cleaning / prep stages
+  A --> B{{"🧹 Data Cleaning"}}
+  B --> C["✂️ Segmentation\n(split into utterances)"]
+  C --> D["🔗 Alignment\n(audio ↔ text)"]
+  D --> E["⚖️ Normalization\n(text, sampling rate, loudness)"]
+  E --> F["🔬 Feature Extraction\n(mel-spectrograms, phonemes, prosody)"]
+  F --> G(["🎯 Training Dataset\n(ready for TTS models like Piper)"])
 
-This diagram illustrates the typical pipeline from raw recordings and text sources to a training-ready dataset used by TTS models like Piper, similar to how LibriTTS and HUI corpora are prepared. 
+  %% Minimal styling that most Mermaid renderers accept
+  classDef stage fill:#ECFEFF,stroke:#0891B2,color:#05445E;
+  class A,B,C,D,E,F,G stage;
+```
 
----
+This diagram shows the journey from raw recordings and text to a training-ready dataset (used in corpora like LibriTTS/HUI).
 
-### 5.2 Feature Extraction Flow
+## 1.2 Feature Extraction Flow
 
+```mermaid
 flowchart LR
-A[Audio Waveform] --> B[Preprocessing\n(resample, trim, normalize)]
-B --> C[Acoustic Features\n(mel-spectrogram, energy)]
-B --> D[Prosodic Features\n(pitch F0, duration, pauses)]
+  subgraph Audio["Audio Path"]
+    AW[Waveform] --> AP[Resample / Trim / Normalize]
+    AP --> AF1["Acoustic Features\n(mel-spectrogram, energy)"]
+    AP --> AF2["Prosodic Features\n(pitch F0, duration, pauses)"]
+  end
 
-E[Text Transcripts] --> F[Text Normalization\n(expand numbers, abbreviations)]
-F --> G[Phoneme/Character Sequences]
+  subgraph Text["Text Path"]
+    T[Text Transcripts] --> TN["Text Normalization\n(expand numbers, abbreviations)"]
+    TN --> TP[Phoneme / Character Sequences]
+  end
 
-C --> H[TTS Model Input]
-D --> H
-G --> H
+  AF1 --> M[TTS Model Input]
+  AF2 --> M
+  TP --> M
+```
 
-This diagram shows how audio and text are converted into features such as mel-spectrograms, prosody signals, and phoneme sequences, which are then fed into the TTS model. 
+This diagram visualizes parallel audio and text processing streams that converge into the TTS model input.
 
----
 
-### 5.3 Voice Characteristic Mapping
+### 1.3 Voice Characteristic Mapping (Conceptual)
 
+```mermaid
 flowchart LR
-A[Dataset Properties] --> B[Learned Acoustic & Prosodic Space]
-B --> C[Synthesized Voice Characteristics]
+  subgraph DatasetDesign["Dataset Design Choices"]
+    D1[Sampling Rate & Bit Depth]
+    D2[Noise Level & Room Acoustics]
+    D3[Speakers & Accents]
+    D4[Text & Phoneme Coverage]
+    D5[Prosody & Emotion Diversity]
+  end
 
-A --> A1[Sampling Rate & Bit Depth]
-A --> A2[Noise Level & Room Acoustics]
-A --> A3[Speakers & Accents]
-A --> A4[Text & Phoneme Coverage]
-A --> A5[Prosody & Emotion Diversity]
+  L[Learned Latent\nAcoustic & Prosodic Space] --> S[Synthesized Voice\nCharacteristics]
 
-C --> C1[Clarity]
-C --> C2[Naturalness]
-C --> C3[Accent & Pronunciation]
-C --> C4[Pitch & Timbre]
-C --> C5[Emotional Expressiveness]
+  D1 --> L
+  D2 --> L
+  D3 --> L
+  D4 --> L
+  D5 --> L
 
+  S --> SC1[Clarity]
+  S --> SC2[Naturalness]
+  S --> SC3[Accent & Pronunciation]
+  S --> SC4[Pitch & Timbre]
+  S --> SC5[Emotional Expressiveness]
+```
 
-This diagram conceptually links dataset design choices (left) to the latent representation learned by a TTS model and finally to perceived voice qualities (right). 
+This conceptual map links dataset design to learned latent space and then to perceived voice qualities.
 
 ---
 
@@ -264,4 +288,5 @@ Piper TTS typically expects training data in formats similar to LJSpeech (e.g., 
 - Using LJSpeech-like data yields a stable, single English female voice with good clarity but limited accent and emotional variation.  
 - Multi-speaker datasets like VCTK, LibriTTS, Hi-Fi, and HUI enable training Piper models that can support multiple voices, accents, or languages, at the cost of more complex training and balancing. 
 When building personalized or multi-profile voices on top of Piper, following the guidelines in Section 4 helps select or construct datasets that match desired voice characteristics while maintaining high clarity and naturalness. 
+
 
