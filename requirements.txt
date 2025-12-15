@@ -1,0 +1,6 @@
+praat-parselmouth
+pydub
+librosa
+soundfile
+numpy
+pytest
