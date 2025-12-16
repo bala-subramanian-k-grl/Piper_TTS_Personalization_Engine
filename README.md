@@ -16,13 +16,39 @@ py -m pip install -r requirements.txt
 
 
 
-## 2. Piper setup 
+## 2. Piper setup (one time, Windows)
 
-1. Download Piper Windows binary and a voice model from the official repo.
-2. Put them in this folder:
+1. **Download Piper Windows binary**
 
-- `C:\piper\piper\piper.exe`
-- `C:\piper\piper\en_US-kathleen-low.onnx`
+   - Go to the official releases page:  
+     https://github.com/rhasspy/piper/releases  
+   - Under the latest release, download the Windows ZIP:  
+     `piper_windows_amd64.zip` (or similar name).  
+   - Alternatively, you can use this mirror link for the Windows binary:  
+     https://sourceforge.net/projects/piper-tts.mirror/files/2023.11.14-2/piper_windows_amd64.zip/download
+
+2. **Download a voice model (example: en_US-kathleen-low)**
+
+   - Go to the official Piper voices on Hugging Face:  
+     https://huggingface.co/rhasspy/piper-voices/tree/v1.0.0/en/en_US/kathleen/low  
+   - Download both of these files from that page:
+     - `en_US-kathleen-low.onnx`  
+     - `en_US-kathleen-low.onnx.json`
+
+3. **Place the files on Windows**
+
+   - Extract `piper_windows_amd64.zip` into:
+
+     `C:\piper\piper\`
+
+   - Ensure this folder contains at least:
+     - `C:\piper\piper\piper.exe`
+     - `C:\piper\piper\en_US-kathleen-low.onnx`
+     - `C:\piper\piper\en_US-kathleen-low.onnx.json`
+
+
+
+
 
 
 
