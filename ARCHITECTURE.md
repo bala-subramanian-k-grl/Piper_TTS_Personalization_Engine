@@ -378,6 +378,13 @@ This Phase-1 implementation does not fine-tune or retrain the Piper ONNX model o
 
 This makes the output voice keep the original Piper timbre (e.g. en_US-kathleen) but follow the user's timing and expressiveness. Full retraining to match the user's timbre is explicitly left as future work.
 
+Audio Preprocessor = preprocess_audio.py
+
+Feature Extractor = prosody_profile.py
+
+Pattern Learner / Voice Profile Manager = profile_builder.py
+
+Synthesis Adapter = main_cli.py
 
 
 
