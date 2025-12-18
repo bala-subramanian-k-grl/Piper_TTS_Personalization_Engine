@@ -368,6 +368,16 @@ Observed differences:
 - **Audio files**:
   - `baseline.wav` and `personalized.wav` for listening comparison.
 
+### Voice similarity vs full voice cloning
+
+This Phase-1 implementation does not fine-tune or retrain the Piper ONNX model on user audio (full voice cloning). Instead, it:
+
+- learns user prosody (speed, pauses, pitch variation, coarse emotion) from `user_raw.wav`,
+- maps these features into Piper runtime parameters (`length_scale`, `noise_scale`, `noise_w`),
+- applies them at synthesis time.
+
+This makes the output voice keep the original Piper timbre (e.g. en_US-kathleen) but follow the user's timing and expressiveness. Full retraining to match the user's timbre is explicitly left as future work.
+
 
 
 
